@@ -6,13 +6,13 @@ services:
     command: --innodb-use-native-aio=0
     container_name: db
     restart: always
-    tty: true //libera modo interativo 
+    tty: true 
     volumes:
       - ./mysql:/var/lib/mysql
     environment:
       - MYSQL_DATABASE=nodedb
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_USER=root
+ 
     networks:
       - nginx-node
 
