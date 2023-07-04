@@ -1,6 +1,6 @@
-FROM nginx:latest
+FROM nginx:1.15.0-alpine
 
-RUN apt-get update && apt-get install -y wget
+RUN rm /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/
 
-ENTRYPOINT [ "/docker-entrypoint.sh" ]
-CMD ["nginx", "-g", "daemon off;"]
+RUN mkdir /var/www/html -p && touch /var/www/html/index.php

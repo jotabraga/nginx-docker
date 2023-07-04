@@ -1,16 +1,15 @@
-version: '3'
+version: "3"
 
 services:
-
   app:
-    build: 
+    build:
       context: node
     networks:
       - nginx-node
     volumes:
       - ./node:/usr/src/app
     tty: true
-    container_name: app    
+    container_name: app
     ports:
       - "3000:3000"
     depends_on:
@@ -21,7 +20,7 @@ services:
     command: --innodb-use-native-aio=0
     container_name: db
     restart: always
-    tty: true 
+    tty: true
     volumes:
       - ./mysql:/var/lib/mysql
     environment:
@@ -30,6 +29,18 @@ services:
     networks:
       - nginx-node
 
+  nginx:
+    build:
+      context: ./nginx
+    container_name: nginx
+    tty: true
+    ports:
+      - "8080:80"
+    depends_on:
+      - app
+    networks:
+      - nginx-node
+
 networks:
-  nginx-node: 
+  nginx-node:
     driver: bridge
