@@ -16,6 +16,8 @@ services:
       - db
 
   db:
+    build:
+      context: ./db
     image: mysql:5.7
     command: --innodb-use-native-aio=0
     container_name: db
@@ -23,6 +25,7 @@ services:
     tty: true
     volumes:
       - ./mysql:/var/lib/mysql
+      - ./db/initdb.sql:/data/application/initdb.sql
     environment:
       - MYSQL_DATABASE=nodedb
       - MYSQL_ROOT_PASSWORD=root
